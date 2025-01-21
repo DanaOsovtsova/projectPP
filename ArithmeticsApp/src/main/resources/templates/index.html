@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Input and Output Form</title>
+    <title>Expression Calculator</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -42,23 +42,28 @@
 <body>
 <div class="container">
     <h2>Expression calculator</h2>
-    <form id="dataForm">
+    <form th:action="@{/process}" method="post">
         <label for="inputField">Enter your data:</label>
-        <textarea id="inputField" rows="5" placeholder="Type your data here..."></textarea>
+        <textarea id="inputField" name="inputData" rows="5" placeholder="Type your data here..."></textarea>
 
         <label for="typeSelect">Select data type:</label>
-        <select id="typeSelect">
+        <select id="typeSelect" name="dataType">
             <option value="xml">XML</option>
             <option value="json">JSON</option>
-            <option value="txt">Txt</option>
+            <option value="txt">TXT</option>
         </select>
 
-        <button type="button">Process</button>
+        <button type="submit">Submit</button>
     </form>
 
     <h3>Result:</h3>
-    <textarea id="outputField" rows="5" readonly placeholder="Processed data will appear here..."></textarea>
+    <textarea th:text="${processedData}" rows="5" readonly placeholder="Processed data will appear here..."></textarea>
+    <form th:action="@{/clear}" method="post">
+        <button type="submit">Очистить папку</button>
+    </form>
+
 </div>
+
 
 </body>
 </html>
